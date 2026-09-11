@@ -49,6 +49,19 @@ out of the build until you copy one in.
 
 ---
 
+## Get a new example from the course starter
+
+1. In VS Code, **save all files, commit your changes, and push** to your fork.
+2. On GitHub, open **your fork** on `main`: **Sync fork → Update branch**.
+3. Back in VS Code, open **Source Control → … → Pull** (on `main`).
+4. Check that `examples/session02_address_probe.cpp` has appeared.
+
+**Sync fork updates GitHub; Pull updates your laptop.** If either step reports
+conflicts, ask the teacher; keep your own work. The probe is also available in
+Moodle as a backup, so you can continue the lab while resolving a sync problem.
+
+---
+
 ## Session by session
 
 - **Session 1 — first flash:** flash `src/main.cpp` as-is (blink + hello).
@@ -57,6 +70,7 @@ out of the build until you copy one in.
   - Wire the MPU-6050: **3V3 → VCC, GND → GND, GPIO8 → SDA, GPIO9 → SCL** *(power off while wiring)*.
   - Copy `examples/session02_i2c_scanner.cpp` → `src/main.cpp`, flash → find `0x68`.
   - Copy `examples/session02_mpu_read.cpp` → `src/main.cpp` → read motion, sanity-check gravity on Z.
+  - Debug: copy `examples/session02_address_probe.cpp` → `src/main.cpp`. Change `REQUEST_ADDRESS` **0x68 → 0x69 → 0x68**, uploading each time; compare **ACK → NACK → ACK** with the wires connected. Restore the motion sketch afterwards.
   - Analog first: copy `examples/session02_pot_read.cpp` → `src/main.cpp` → turn the knob, watch the number sweep.
   - Record CSVs: `pio device monitor --quiet > wave_01.csv` (one file per gesture).
     **Commit and push the CSVs** — you need them in session 3.
