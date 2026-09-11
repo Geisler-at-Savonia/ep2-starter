@@ -1,11 +1,9 @@
 /*
- * Session 2 HOMEWORK — analog in, PWM out: make the knob dim the LED.
+ * Session 2 — knob dims LED: class starting point + homework.
  * --------------------------------------------------------------------------
- * This is the graded exercise for session 2:  FINAL: knob dims LED
- *
- * It is the smallest complete sense -> act loop in the whole course, and it is
- * the same shape as every project you will build: read something from the
- * world, decide a number, drive an output with it.
+ * IN CLASS: copy into src/main.cpp, wire, build and test.
+ * Commit and push as SETUP: knob works (ungraded save point).
+ * The unchanged example is the starting point for the homework below.
  *
  * WIRING (power off while you wire):
  *   pot outer leg 1 -> 3V3
@@ -34,11 +32,19 @@
  * analogWrite() takes LEDC channels counting down from the top, and the scope
  * signal holds channel 0. They coexist.
  *
- * MAKE IT YOURS — that is the actual assignment:
- *   - invert it, so turning the knob up makes the LED dimmer
- *   - add a dead zone, so the bottom tenth of the travel is fully off
- *   - drive the buzzer instead of the LED (same idea, noisier)
- *   - print the raw value and the duty side by side and watch them track
+ * HOMEWORK — make the dimming yours:
+ *   1. Replace raw / 16 with a mapping you designed, aiming for brightness
+ *      that feels even across the knob's travel. Keep duty within 0..255.
+ *      Equal steps in duty do not necessarily look like equal brightness.
+ *   2. Add three comment lines at the top of src/main.cpp:
+ *      - What I wanted the dimming to feel like.
+ *      - The rule I wrote.
+ *      - One thing that surprised me when testing it.
+ *   3. Commit and push as FINAL: knob dims LED.
+ *      Submit that commit's link in Moodle with your AI-use line.
+ *
+ * Try your rule on the LED and explain what happened; it need not be perfect.
+ * Just copying this example unchanged does not complete the homework.
  */
 #include <Arduino.h>
 

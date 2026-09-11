@@ -74,7 +74,7 @@ Moodle as a backup, so you can continue the lab while resolving a sync problem.
   - Analog first: copy `examples/session02_pot_read.cpp` → `src/main.cpp` → turn the knob, watch the number sweep.
   - Record CSVs: `pio device monitor --quiet > wave_01.csv` (one file per gesture).
     **Commit and push the CSVs** — you need them in session 3.
-  - Homework: `examples/session02_knob_dims_led.cpp` → analog in, PWM out → `FINAL: knob dims LED`.
+  - Homework: start from `examples/session02_knob_dims_led.cpp`, replace `raw / 16` with your own brightness mapping, and add three comment lines (intended feel, your rule, one surprise). Commit and push `FINAL: knob dims LED`; submit its link and your AI-use line in Moodle.
 - **Session 3 — train:** upload your CSVs to Edge Impulse and train. *(We install the Edge Impulse CLI together in the lab if we need the live data forwarder — don't fight with it at home.)*
 - **Session 4 — deploy:** export your model as an **Arduino library**, unzip into `lib/`, then work from `examples/session04_deploy.cpp` (edit the `#include` to your project's header).
 - **Session 5 — security:** copy `examples/session05_plant_secret.cpp` → `src/main.cpp`, flash, then dump the flash and find your secret (see that file's header).
