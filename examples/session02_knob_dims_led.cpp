@@ -32,19 +32,29 @@
  * analogWrite() takes LEDC channels counting down from the top, and the scope
  * signal holds channel 0. They coexist.
  *
- * HOMEWORK — make the dimming yours:
- *   1. Replace raw / 16 with a mapping you designed, aiming for brightness
- *      that feels even across the knob's travel. Keep duty within 0..255.
- *      Equal steps in duty do not necessarily look like equal brightness.
- *   2. Add three comment lines at the top of src/main.cpp:
- *      - What I wanted the dimming to feel like.
- *      - The rule I wrote.
- *      - One thing that surprised me when testing it.
- *   3. Commit and push as FINAL: knob dims LED.
+ * HOMEWORK — tilt switches, knob dims:
+ *   Combine this example with examples/session02_mpu_read.cpp in src/main.cpp.
+ *   Keep one setup() and one loop(), and keep your working platformio.ini.
+ *   MPU wiring: 3V3, GND, SDA GPIO8, SCL GPIO9. Keep the LED and pot above.
+ *
+ *   1. Choose one accelerometer axis. With its positive direction pointing up,
+ *      enable the LED; held sideways or down, turn the LED off.
+ *      Read the acceleration in those poses and choose a threshold between
+ *      them. Judge orientation while held still, not during a shake.
+ *   2. While enabled, the pot sets brightness. While disabled, the LED stays
+ *      off at every knob setting. The existing raw / 16 mapping is fine.
+ *   3. Test up -> sideways -> down -> up, plus two knob settings while enabled.
+ *      Use a nonzero knob setting when checking the orientation switch.
+ *   4. Add three comment lines at the top of src/main.cpp:
+ *      - My chosen axis and threshold.
+ *      - The readings I observed in the three poses.
+ *      - One thing that surprised me when testing.
+ *   5. Commit and push as FINAL: knob dims LED.
  *      Submit that commit's link in Moodle with your AI-use line.
  *
- * Try your rule on the LED and explain what happened; it need not be perfect.
- * Just copying this example unchanged does not complete the homework.
+ *   Both controls must work; a brightness curve or perfectly flicker-free
+ *   switching is not required. Optional: reduce flicker near the threshold.
+ *   The unchanged knob-only example below is the class starting point.
  */
 #include <Arduino.h>
 
