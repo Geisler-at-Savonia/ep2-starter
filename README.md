@@ -54,7 +54,7 @@ out of the build until you copy one in.
 1. In VS Code, **save all files, commit your changes, and push** to your fork.
 2. On GitHub, open **your fork** on `main`: **Sync fork → Update branch**.
 3. Back in VS Code, open **Source Control → … → Pull** (on `main`).
-4. Check that `examples/session02_address_probe.cpp` has appeared.
+4. Check that `examples/session02_address_probe.cpp` and `tools/plot_csv.py` have appeared.
 
 **Sync fork updates GitHub; Pull updates your laptop.** If either step reports
 conflicts, ask the teacher; keep your own work. The probe is also available in
@@ -74,6 +74,7 @@ Moodle as a backup, so you can continue the lab while resolving a sync problem.
   - Analog first: copy `examples/session02_pot_read.cpp` → `src/main.cpp` → turn the knob, watch the number sweep.
   - Record CSVs: `pio device monitor --quiet > wave_01.csv` (one file per gesture).
     **Commit and push the CSVs** — you need them in session 3.
+  - Plot and compare your recordings with `tools/plot_csv.py` (instructions below).
   - Homework: start from `examples/session02_knob_dims_led.cpp`, replace `raw / 16` with your own brightness mapping, and add three comment lines (intended feel, your rule, one surprise). Commit and push `FINAL: knob dims LED`; submit its link and your AI-use line in Moodle.
 - **Session 3 — train:** upload your CSVs to Edge Impulse and train. *(We install the Edge Impulse CLI together in the lab if we need the live data forwarder — don't fight with it at home.)*
 - **Session 4 — deploy:** export your model as an **Arduino library**, unzip into `lib/`, then work from `examples/session04_deploy.cpp` (edit the `#include` to your project's header).
@@ -81,6 +82,52 @@ Moodle as a backup, so you can continue the lab while resolving a sync problem.
 - **Session 6 — vision:** clone the Edge Impulse project linked in Moodle, train it, deploy it, and feed it a baked-in test image from `include/test_images.h`. Then push the resolution until the board gives up and record where — `ceiling.md`, `FINAL: my ceiling`.
 - **Session 7 — platform:** your team's platform sentence goes in your **team** repo's `README`.
 - **Sessions 8–10 — project:** the project lives in your **team** repo, not this fork. Copy `report-template.md` across when you write the report (2 pages max).
+
+---
+
+## Plot your session-2 CSV files
+
+In your project’s **PlatformIO terminal**, run:
+
+```bash
+python tools/plot_csv.py wave_01.csv shake_01.csv idle_01.csv
+```
+
+Open **`plots/motion.html` in your web browser**. Python 3.8+ is enough; there
+are no extra packages to install and the report works offline. If `python` is
+not found, try `python3` on Mac/Linux or `py` on Windows. Pair up if Python is
+unavailable instead of spending the investigation installing software.
+
+The report shows **X, Y, Z and acceleration magnitude** on a common vertical
+scale. Click a filename to hide/show its traces. The table reports each
+signal’s **range (maximum minus minimum)** across the whole file, in m/s².
+Magnitude includes gravity: it is about 9.8 m/s² at rest, not zero.
+
+- Use **one or several file paths**; quoted patterns such as `"wave_*.csv"` work
+  too. Example: `python tools/plot_csv.py wave_01.csv wave_rotated_01.csv`.
+- The horizontal axis counts readings. Add **`--rate 50`** for estimated seconds
+  at an assumed 50 Hz. The CSV has no timestamps; this cannot verify the actual
+  rate. Separate recordings start at their own first reading, not a shared time.
+- Files must contain **three finite numbers per row, no header**. UTF-8 and
+  BOM-marked Windows UTF-16 are accepted. An invalid row gives its filename and
+  line number; fix the CSV and rerun. The script never silently discards rows or
+  edits the recordings. Save cleaned CSVs as UTF-8 for next session.
+- Rerunning replaces the generated report. **Keep and commit your CSVs**;
+  `plots/` is ignored because reports can be regenerated.
+
+**Choose one investigation after saving your core files:**
+
+1. **See the activity:** predict differences between wave/shake/idle. Find a
+   visible clue in the plots, then show where it becomes ambiguous.
+2. **Rotate the grip:** repeat the same wave with the board rotated in your hand.
+   Save a new file and compare axes versus magnitude. Keep the changed grip noted.
+3. **Test a rule:** choose a Z-range threshold for idle versus wave from your
+   original files. Test it, unchanged, on a fresh slower wave and idle recording
+   of similar duration. Explain a wrong decision or propose a harder test.
+
+These are optional investigations, not extra graded submissions. A rule that
+separates two whole files is not yet a live motion detector. Keep fresh takes
+separate for testing next session.
 
 ---
 
