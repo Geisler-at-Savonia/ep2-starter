@@ -86,18 +86,55 @@ Moodle as a backup, so you can continue the lab while resolving a sync problem.
 
 ---
 
+## If `pio` is not found
+
+PlatformIO IDE already includes the command-line tools. A regular terminal may
+not have them on its PATH. In VS Code, open:
+
+**PlatformIO (ant icon) → Quick Access → Miscellaneous → PlatformIO Core CLI**
+
+Run `pio --version` in that terminal, then run the recording command from your
+project folder. Close the Serial Monitor first. If the menu is missing, enable
+or install the **PlatformIO IDE** extension and let its initial setup finish.
+You do not need a second PlatformIO installation.
+
+If you still need a direct command, these use the default installation paths.
+In **Windows PowerShell**:
+
+```powershell
+& "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" device monitor --baud 115200 --quiet > wave_01.csv
+```
+
+On **Mac/Linux**:
+
+```bash
+~/.platformio/penv/bin/pio device monitor --baud 115200 --quiet > wave_01.csv
+```
+
+Press **Ctrl+C** after the take. Use a different filename for each take.
+Windows PowerShell may save UTF-16; inspect and save cleaned CSVs as UTF-8 for
+next session. The plotter can read both encodings.
+
+---
+
 ## Plot your session-2 CSV files
 
-In your project’s **PlatformIO terminal**, run:
+In the **PlatformIO Core CLI** opened above, from your project folder, run:
 
 ```bash
 python tools/plot_csv.py wave_01.csv shake_01.csv idle_01.csv
 ```
 
 Open **`plots/motion.html` in your web browser**. Python 3.8+ is enough; there
-are no extra packages to install and the report works offline. If `python` is
-not found, try `python3` on Mac/Linux or `py` on Windows. Pair up if Python is
-unavailable instead of spending the investigation installing software.
+are no extra packages to install and the report works offline. Use the same
+Core CLI terminal for Python. If `python` is still not found, use the bundled
+interpreter (default installation paths):
+
+- Windows PowerShell: `& "$env:USERPROFILE\.platformio\penv\Scripts\python.exe" tools/plot_csv.py wave_01.csv`
+- Mac/Linux: `~/.platformio/penv/bin/python tools/plot_csv.py wave_01.csv`
+
+Add the other CSV filenames to compare multiple recordings. Pair up if the
+installation itself is broken instead of spending the investigation repairing it.
 
 The report shows **X, Y, Z and acceleration magnitude** on a common vertical
 scale. Click a filename to hide/show its traces. The table reports each
