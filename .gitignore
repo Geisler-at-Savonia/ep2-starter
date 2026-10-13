@@ -16,11 +16,6 @@
 .DS_Store
 Thumbs.db
 
-# Session 4: the Edge Impulse library you unzip into lib/ (~23 MB, 1300+ files).
-# It is regenerated from Studio in one click, so it does not belong in your repo.
-# lib/README.md stays tracked; everything else under lib/ is ignored.
-lib/*/
-
 # Regenerable CSV plots and Python caches
 plots/
 __pycache__/
