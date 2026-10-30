@@ -8,7 +8,7 @@ Session 6. Fill this in as you go, then commit it as "FINAL: my ceiling".
 - Accuracy: the validation accuracy on Edge Impulse's "Transfer learning" page
   after training (for 96 px it is already there in the cloned project).
 - The three questions at the bottom are the homework: answer each with
-  "time" or "memory" and one reason taken from your numbers in the table.
+  "time" or "memory" and one reason — from your measurements or the slides.
 -->
 
 | Image size | My prediction             | Measured | FPS | Accuracy |
